@@ -5,7 +5,7 @@ import { CharacterCard } from "../component/Card.jsx";
 
 export const Home = () => {
 	const { store, actions} = useContext(Context)
-	console.log(store)
+	console.log(store.getCharactersInfo)
 	return(
 		<div className="container">
 			<div className="justify-content-center row mt-5">

@@ -1,15 +1,15 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			data:{},
-			previous:"",
+			data: false,
+			next:"",
+			previous: "",
 			results: [],
 			total_pages: 0,
-			favorites:[],
-			charactersInfo:[]
+			charactersInfo: []
 		},
 		actions: {
-			getData: (params="") => {
+			getData: () => {
 				  fetch("https://www.swapi.tech/api/people", {
 					method: 'GET',
 					redirect: 'follow'
@@ -20,20 +20,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 						previous: result.previous,
 						results: result.results,
 						total_pages: result.total_pages,
-						characterId:[]
+						data:false
 					}))
+					.then(() => getActions().getCharactersInfo())
 					.catch(error => console.log('error', error));
 			},
-			getCharactersInfo: () => {
+			getCharactersInfo: async () => {
 				const characterId = getStore().results
 				for (let i of characterId){
-					console.log(i.uid)
-					fetch(`https://www.swapi.tech/api/people/${i.uid}`, {
+					await fetch(`https://www.swapi.tech/api/people/${i.uid}`, {
 					method: 'GET',
 					redirect: 'follow'
 				  })
 					.then(response => response.json())
-					.then(result => setStore({charactersInfo: [...charactersInfo, result]}))
+					.then(result => getStore(setStore({charactersInfo: [...charactersInfo, result]})))
 					.catch(error => console.log('error', error));
 				}
 				

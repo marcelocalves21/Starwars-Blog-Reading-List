@@ -5,9 +5,12 @@ import { CharacterCard } from "../component/Card.jsx";
 
 export const Home = () => {
 	const { store, actions} = useContext(Context)
-	console.log(store.charactersInfo)
+	console.log(store)
 	return(
-	<div className="d-flex justify-content-center row mt-5">
-		<CharacterCard results={store.results}/>
-	</div>
+		<div className="container">
+			<div className="justify-content-center row mt-5">
+				<CharacterCard results={store.results}/>
+			</div>
+			<button className="btn btn-danger" onClick={()=> actions.getCharactersInfo()}>Data</button>
+		</div>
 )};

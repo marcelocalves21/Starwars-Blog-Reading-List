@@ -1,15 +1,15 @@
 import React, {useContext} from "react";
 import "../../styles/home.css";
+import { CharacterInfoCard } from "../component/Card.jsx";
 import {Context} from "../store/appContext.js"
-import { CharacterCard } from "../component/Card.jsx";
-import { Link } from "react-router-dom";
 
-export const Home = () => {
+
+export const Character = () => {
 	const { store, actions} = useContext(Context)
 	return(
-		<div className="container">
+        <div className="container">
 			<div className="justify-content-center row mt-5">
-				<CharacterCard />
+                <CharacterInfoCard/>
 			</div>
 		</div>
 )};

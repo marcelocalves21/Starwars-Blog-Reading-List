@@ -4,7 +4,7 @@ import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home.jsx";
 import injectContext from "./store/appContext";
-import { CharacterInfoCard } from "./component/Card.jsx";
+import { Character} from "./views/Character.jsx";
 
 import { Navbar } from "./component/navbar.jsx";
 import { Footer } from "./component/footer.jsx";
@@ -22,7 +22,7 @@ const Layout = () => {
 					<Navbar />
 					<Switch>
 						<Route exact path="/" component={Home}/>
-						<Route exact path="/characaterCard/:index" component={CharacterInfoCard}/>
+						<Route exact path="/characater/:index" component={Character}/>
 						<Route>
 							<h1>Not found!</h1>
 						</Route>

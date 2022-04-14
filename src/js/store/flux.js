@@ -24,16 +24,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}))
 					.catch(error => console.log('error', error));
 			},
-			getCharactersInfo: (id) => {
-				fetch(`https://www.swapi.tech/api/people/${id}`, {
+			getCharactersInfo: async (id) => {
+				await fetch(`https://www.swapi.tech/api/people/${id}`, {
 				method: 'GET',
 				redirect: 'follow'
 				})
 				.then(response => response.json())
 				.then(result => {
 						getStore(setStore({charactersInfo: result}))
-						getStore(setStore({charactersData: true}))
 					})
+					.then(() => getStore(setStore({charactersData: true})))
 				.catch(error => console.log('error', error));
 				
 			}

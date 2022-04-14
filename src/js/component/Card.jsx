@@ -1,4 +1,4 @@
-import React, {useContext} from "react"
+import React, {useContext,useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 import {Context} from "../store/appContext.js"
 
@@ -16,7 +16,7 @@ export const CharacterCard = () => {
                     <div className="card-body">
                         <h5 className="card-title">{item.name}</h5>
                         <div className="d-flex justify-content-between">
-                            <Link to={"/characaterCard/" + item.uid}>
+                            <Link to={"/characater/" + item.uid}>
                                 <button 
                                     type="button" 
                                     className="btn btn-primary" 
@@ -41,31 +41,46 @@ export const CharacterCard = () => {
 
 export const CharacterInfoCard = () => {
     const {store, actions} = useContext(Context)
+    const [data, setData] = useState(false)
+    console.log(data)
     console.log(store.charactersInfo)
+    useEffect(() => {
+        setData(true)
+    }, [store.charactersInfo])
     return(
-        <div className="card mb-3" style={{maxWidth: "540px"}}>
-            {store.characatersData? 
-            <div className="row g-0">
-                <div className="col-md-4">
-                <img src={".jpg"} className="img-fluid rounded-start" alt="..."/>
-                </div>
-                <div className="col-md-8">
-                    <div className="card-body">
-                        <h5 className="card-title">Name: {store.charactersInfo.result.properties.name}</h5>
-                        <p className="card-text">Description: {store.charactersInfo.result.description}</p>
-                        <p className="card-text">Gender: {store.charactersInfo.result.properties.gender}</p>
-                        <p className="card-text">Hair color: {store.charactersInfo.result.properties.hair-color}</p>
-                        <p className="card-text">Eye color: {store.charactersInfo.result.properties.eye-color}</p>
-                        <p className="card-text">Birth Year: {store.charactersInfo.result.properties.birth_year}</p>
+        <>
+            {store.charactersInfo.message === "ok" ?
+                <div className="card mb-3" style={{maxWidth: "1000px"}}>
+                    <div className="row g-0">
+                        <div className="col-md-6">
+                            <img src={store.img + store.charactersInfo.result.uid + ".jpg"} className="img-fluid rounded-start" alt="..."/>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="card-body">
+                                <h5 className="card-title">{store.charactersInfo.result.properties.name}</h5>
+                                <p className="card-text">{store.charactersInfo.result.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="d-flex justify-content-center">
+                        <p className="card-text m-1">Gender: {store.charactersInfo.result.properties.gender}</p>
+                        <p className="card-text m-1">Hair color: {store.charactersInfo.result.properties.hair_color}</p>
+                        <p className="card-text m-1">Eye color: {store.charactersInfo.result.properties.eye_color}</p>
+                        <p className="card-text m-1">Birth Year: {store.charactersInfo.result.properties.birth_year}</p>
                     </div>
                 </div>
-            </div>
             :
-            ""
+            <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            
             }
-        </div>
-    )
-        
+            
+        </>
+    )   
 }
 
 const obj = {

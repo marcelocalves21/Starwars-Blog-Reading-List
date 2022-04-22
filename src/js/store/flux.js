@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			results: [],
 			total_pages: 0,
 			charactersInfo: {},
-			charactersData: false
+			favorites: []
 		},
 		actions: {
 			getData: () => {
@@ -36,6 +36,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(() => getStore(setStore({charactersData: true})))
 				.catch(error => console.log('error', error));
 				
+			},
+			addFavorites: (info) => {
+				let favoritesList = getStore().favorites
+				if(!favoritesList.includes(info)){
+					favoritesList = [...favoritesList, info]
+				}
+				console.log(favoritesList)
+				setStore({favorites: favoritesList})
+			},
+			deleteFavorites: (info) => {
+				let favoritesList = getStore().favorites
+				favoritesList = favoritesList.filter((item, index)=> item !== info)
+				setStore({favorites: favoritesList})
 			}
 		}
 	};

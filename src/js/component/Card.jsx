@@ -6,7 +6,6 @@ import {Context} from "../store/appContext.js"
 export const CharacterCard = () => {
     const {store, actions} = useContext(Context)
     
-
     return(
         <>
         {store.results && store.results.map((item, index) => {
@@ -27,7 +26,16 @@ export const CharacterCard = () => {
                                 </button>
                             </Link>
                             <input type="button" className="btn btn-check" id="favorite"/>
-                            <label className={"btn btn-outline-secondary"} htmlFor="favorite"><i className="fas fa-heart"></i></label>
+                            <label 
+                                className={
+                                    store.favorites.name === item.name ?
+                                    "btn btn-success":
+                                    "btn btn-secondary"
+                                } 
+                                htmlFor="favorite"
+                                onClick={()=> actions.addFavorites(item)}>
+                                    <i className="fas fa-heart"></i>
+                                </label>
                         </div>
                         
                     </div>
@@ -57,7 +65,7 @@ export const CharacterInfoCard = () => {
                         </div>
                         <div className="col-md-6">
                             <div className="card-body">
-                                <h5 className="card-title">{store.charactersInfo.result.properties.name}</h5>
+                                <h1 className="card-title">{store.charactersInfo.result.properties.name}</h1>
                                 <p className="card-text">{store.charactersInfo.result.description}</p>
                             </div>
                         </div>
